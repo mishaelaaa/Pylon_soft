@@ -52,8 +52,7 @@ while camera.IsGrabbing():
                     #img.AttachGrabResultBuffer(result)
                     #filename = "./img/saved_pypylon_img_%d.png" % i
                     #img.Save(pylon.ImageFileFormat_Png, filename)
-                    
-                    filename = "./img/saved_pypylon_img_%d.png" % i
+                    filename = "../Python/img/saved_pypylon_img_%d.png" % i
                     cv.imwrite(filename, img)
                     cv.destroyAllWindows()
   
