@@ -55,7 +55,9 @@ while camera.IsGrabbing():
                     cv.destroyAllWindows()
                     time.sleep(seconds)
             exit(1)
-            
+
+        else:    
+            print("None")
 # Releasing the resource    
 camera.StopGrabbing()
 camera.Close()
