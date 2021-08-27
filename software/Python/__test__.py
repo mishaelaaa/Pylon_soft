@@ -45,29 +45,23 @@ while camera.IsGrabbing():
 
         #saving
         elif k == ord('s'):
-            for i in range(num_img_to_save):
-                with camera.RetrieveResult(2000) as result:
-                    # Calling AttachGrabResultBuffer creates another reference to the
-                    # grab result buffer. This prevents the buffer's reuse for grabbing.
-                    
-                    while seconds!=0:
-                        current_time = time.time()
-                        elapsed_time = current_time - start_time
+                for i in range(num_img_to_save):
+                    with camera.RetrieveResult(2000) as result:
+                        # Calling AttachGrabResultBuffer creates another reference to the
+                        # grab result buffer. This prevents the buffer's reuse for grabbing.
+                        filename = "../Python/img/saved_pypylon_img_%d.png" % i
+                        #cv.imwrite(filename, img)
+                        cv.destroyAllWindows()
                         
-                        for elapsed_time in range(seconds) :
-                            filename = "./img/saved_pypylon_img_%d.png" % i
-                            cv.imwrite(filename, img)
-                            cv.destroyAllWindows()
-
-                        if elapsed_time > seconds:
-
-                            print("Finished iterating in: " + str(int(elapsed_time))  + " seconds")
-                        break
-                # In order to make it possible to reuse the grab result for grabbing
-                # again, we have to release the image (effectively emptying the
-                # image object).
-
-            exit(1)     
+                        #saving first with delay - 5 seconds
+                        while i != num_img_to_save :
+                            current_time = time.time()
+                            elapsed_time = current_time - start_time
+                            if elapsed_time > seconds:
+                                cv.imwrite(filename, img)
+                                print("Finished iterating in: " + str(int(elapsed_time))  + " seconds")
+                                break    
+#                exit(1)     
 
 # Releasing the resource    
 camera.StopGrabbing()
