@@ -42,26 +42,20 @@ while camera.IsGrabbing():
             cv.destroyAllWindows()
             break
 
-        #saving
         elif k == ord('s'):
-            for i in range(num_img_to_save):
-                with camera.RetrieveResult(2000) as result:
-                    # Calling AttachGrabResultBuffer creates another reference to the
-                    # grab result buffer. This prevents the buffer's reuse for grabbing.
-                    
-                    #img.AttachGrabResultBuffer(result)
-                    #filename = "./img/saved_pypylon_img_%d.png" % i
-                    #img.Save(pylon.ImageFileFormat_Png, filename)
+            with camera.RetrieveResult(2000) as result:
+
+                for i in range(num_img_to_save):
+                    grabResult = camera.RetrieveResult(2000, pylon.TimeoutHandling_ThrowException)
+                    image = converter.Convert(grabResult)
+                    img = image.GetArray()
+
                     filename = "../Python/img/saved_pypylon_img_%d.png" % i
                     cv.imwrite(filename, img)
                     cv.destroyAllWindows()
-  
-                # In order to make it possible to reuse the grab result for grabbing
-                # again, we have to release the image (effectively emptying the
-                # image object).
-
-            exit(1)     
-
+                    time.sleep(seconds)
+            exit(1)
+            
 # Releasing the resource    
 camera.StopGrabbing()
 camera.Close()
